@@ -125,6 +125,7 @@
     </div>
   </div>
 </nav>
+
 <div class="container">
 <!--
     <div class="dropdown">
@@ -137,7 +138,7 @@
     </ul>
     </div>
 -->
-    
+    <h3>Authority Update</h3>
     <br><br><br>
     <select class="custom-select .dropdown-info" size="3" id="select1">
       <option selected>Open this select menu</option>
@@ -204,14 +205,14 @@
     <div id="update_resources" style="display:none;">
         <br><br>
         
-            <input type="radio" value="water">Water
-            <input type="radio" value="electricity">Electricity
-            <input type="radio" value="ration">Ration
-            <input type="radio" value="weather">Weather
+            <input type="radio" name="resource_name" value="water">Water
+            <input type="radio" name="resource_name" value="electricity">Electricity
+            <input type="radio" name="resource_name" value="ration">Ration
+            <input type="radio" name="resource_name" value="weather">Weather
             
             <form id="update_form">
             
-                New Values: <input type="text" id="new_value" name="new_value">
+                New Values: <input type="text" id="new_value" name="resource_state">
                 Message to consumer: <input type="text" id="message" name="message">
                 <button onclick="sendUpdatedDetails(event)"></button>
                     
