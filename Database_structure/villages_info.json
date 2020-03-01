@@ -1,0 +1,12 @@
+{
+    "village_name"  : "",
+    "village_pos_lat" : "",
+    "village_pos_lon" : "",
+    "village_population" :"",
+    "village_state" : "",
+    "village_score" : "",
+    "village_govt_auth" : "",
+    "village_govt_auth_contact" : "",
+    "village_local_auth": "",
+    "village_local_auth_contact" : ""
+}
