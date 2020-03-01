@@ -71,14 +71,27 @@
         {
             
             event.preventDefault();
-            updateform_newvalues=document.getElementById("new_value");
+            resource_name=ocument.querySelector('input[name="resource_name"]:checked').value;
+            updateform_newvalues=document.getElementById("resource_state");
             updateform_message=document.getElementById("message");
+            resource_activation_date=document.getElementById("resource_activation_date");
+            
+            resource_activation_time=document.getElementById("resource_activation_time");
+            resource_deactivation_date=document.getElementById("resource_deactivation_date");
+            resource_deactivation_time=document.getElementById("resource_deactivation_date");
+            
             xhr=new XMLHttpRequest();
             xhr.onreadystatechange=showReply;
             form=new FormData();
             
-            form.append("newvalue",updateform_newvalues);
+            form.append("resource_name",resource_name);
+            form.append("resource_state",updateform_newvalues);
 			form.append("message",updateform_message);
+            form.append("resource_activation_date",resource_activation_date);
+            form.append("resource_activation_time",resource_activation_time);
+            form.append("resource_deactivation_date",resource_deactivation_date);
+            form.append("resource_deactivation_time",resource_activation_time);
+            
             
             xhr.open("POST","<link to server>",true);
 			xhr.send(form);
@@ -205,23 +218,43 @@
     <div id="update_resources" style="display:none;">
         <br><br>
         
-            <input type="radio" name="resource_name" value="water">Water
-            <input type="radio" name="resource_name" value="electricity">Electricity
-            <input type="radio" name="resource_name" value="ration">Ration
-            <input type="radio" name="resource_name" value="weather">Weather
+
             
             <form id="update_form">
-            
-                New Values: <input type="text" id="new_value" name="resource_state">
-                Message to consumer: <input type="text" id="message" name="message">
-                <button onclick="sendUpdatedDetails(event)"></button>
+                <h5>Select resource type:</h5>
+                <input type="radio" name="resource_name" value="water">Water
+               
+                <input type="radio" name="resource_name" value="electricity">Electricity
+                   
+                <input type="radio" name="resource_name" value="ration">Ration
+                    
+                <input type="radio" name="resource_name" value="weather">Weather
+                    <br>
+
+                    New Values: <input type="text" id="resource_state" name="resource_state">
+                    <br>
+                    Resource Activation time : <input type="time" id="resource_activation_time" name="resource_activation_time">
+                    <br>
+                    Resource Activation Date: <input type="date" id="resource_activation_date" name="resource_activation_date">
+                    <br>
+
+                    Resource Deactivation time : <input type="time" id="resource_deactivation_time" name="resource_deactivation_time">
+                    <br>
+                    Resource Deactivation Date: <input type="date" id="resource_deactivation_date" name="resource_deactivation_date">
+                    <br>
+                    Message to consumer: <input type="text" id="message" name="message">
+                    <br>
+                    <button onclick="sendUpdatedDetails(event)">Update</button>
                     
             </form>
-        
+            <br>
         </div>
         
     </div>
 </div>
+<footer class="container-fluid text-center footer navbar-fixed-bottom">
+ <br>
+</footer>
     
 
 

@@ -6,5 +6,6 @@
     "resouce_deactivation_time" : "",
     "resource_activation_date" : "",
     "resouce_deactivation_date" : "",
+    "message":""
     
 }

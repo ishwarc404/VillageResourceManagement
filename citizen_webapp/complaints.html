@@ -7,6 +7,44 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="application/javascript">
+    
+      function sendComplaint(event)
+      {
+          event.preventDefault();
+          complaint_resource_tag=ocument.querySelector('input[name="complaint_resource_tag"]:checked').value;
+            complainer_resource_value=document.getElementById("complainer_resource_value");
+            complaint_body=document.getElementById("compaint_body");
+          
+            complaint_datetime=document.getElementById("complaint_datetime");
+           
+            
+            xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=showReply;
+            form=new FormData();
+            
+            form.append("complaint_resource_tag",complaint_resource_tag);
+            form.append("complainer_resource_value",complainer_resource_value);
+			form.append("compaint_body",complaint_body);
+            form.append("complaint_datetime",complaint_datetime)
+            
+            xhr.open("POST","<link to server>",true);
+			xhr.send(form);
+        
+        }
+      
+      function showReply()
+      {
+          if(xhr.readyState==4 && xhr.status==200)
+            {
+                alert("Your request for updation has been recieved successfully!");      
+            }
+      }
+          
+      }
+      
+      
+  </script>
 </head>
 <body>
 
@@ -16,34 +54,43 @@
     <div class="form-group">
       <label class="control-label col-sm-2">Tags:</label>
       <div class="col-sm-10">
-            <input type="radio" name="rb1" value="electricity">Electricity
+            <input type="radio" name="complaint_resource_tag" value="electricity">Electricity
             <br>
-            <input type="radio" name="rb1" value="water">Water
+            <input type="radio" name="complaint_resource_tag" value="water">Water
             <br>
-            <input type="radio" name="rb1" value="ration">Ration
+            <input type="radio" name="complaint_resource_tag" value="ration">Ration
             <br>
-            <input type="radio" name="rb1" value="education">Education
+            <input type="radio" name="complaint_resource_tag" value="education">Education
             <br>
-            <input type="radio" name="rb1" value="management">Management
+            <input type="radio" name="complaint_resource_tag" value="management">Management
           
           </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="aadhar">Aadhar Number: </label>
+      <label class="control-label col-sm-2" for="complainer_identification_value">Complainer Identification number: </label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="aadhar" placeholder="Enter your Aadhar number" name="aadhar">
+        <input type="text" class="form-control" id="complainer_identification_value" placeholder="Complainer identification number" name="complainer_identification_value">
       </div>
     </div>
       
     <div class="form-group">
-      <label class="control-label col-sm-2" for="complaint">Complaint </label>
+      <label class="control-label col-sm-2" for="complaint_body">Complaint Body</label>
       <div class="col-sm-10">          
-        <textarea id="complaint" cols=128></textarea>
+        <textarea id="complaint_body" cols=128></textarea>
       </div>
     </div>
+      
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="complaint_datetime">Complaint Datetime</label>
+      <div class="col-sm-10">          
+        <input type="date" id="complaint_datetime" name="complaint_datetime">
+      </div>
+    </div>
+      
+      
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" onsubmit="sendComplaint(event)">Submit</button>
       </div>
     </div>
   </form>
