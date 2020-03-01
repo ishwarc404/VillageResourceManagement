@@ -1,6 +1,10 @@
 {
+    "village_name" : "",
     "resource_name" : "",
     "resource_state" : "",
     "resource_activation_time" : "",
-    "resouce_deactivation_time" : ""
+    "resouce_deactivation_time" : "",
+    "resource_activation_date" : "",
+    "resouce_deactivation_date" : "",
+    
 }
