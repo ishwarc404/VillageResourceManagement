@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    
+      #select1{
+          
+          width:100%;
+          height:inherit;
+      }
+      activated{
+          display:block;
+      }
+/*
+      option{
+          padding: 100px;
+      }
+*/
+        .wrapper {
+        margin: 0 auto;
+        width: 960px;
+        }
+
+        .column {
+        float: left;
+        width: 33%;
+        }
+      
+      
+  </style>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="application/javascript" >
+      
+//        dd.addEventListener("click",loadVillage);
+//        loadVillage=function()
+//        {
+//            console.log("1");
+//        }
+//      $(".dropdown ul li").click(function(){
+//        alert("hi");
+//      });
+        function getOption() {
+            console.log('1');
+            selectElement =  document.querySelector('#select1'); 
+                      
+            output = selectElement.value; 
+  
+            document.querySelector('.output').textContent = output; 
+            showDiv();
+        }
+          function showDiv() {
+            console.log("2");
+            document.getElementById('village_details').style.display = "block";
+        }
+      
+        function updateResources()
+        {
+            showUpdateDiv();
+        }
+      
+        function showUpdateDiv() {
+            console.log("2");
+            document.getElementById('update_resources').style.display = "block";
+        }
+      
+        //to send new details to update the database
+        function sendUpdatedDetails(event)
+        {
+            
+            event.preventDefault();
+            updateform_newvalues=document.getElementById("new_value");
+            updateform_message=document.getElementById("message");
+            xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=showReply;
+            form=new FormData();
+            
+            form.append("newvalue",updateform_newvalues);
+			form.append("message",updateform_message);
+            
+            xhr.open("POST","<link to server>",true);
+			xhr.send(form);
+        
+        }
+      
+      function showReply()
+      {
+          if(xhr.readyState==4 && xhr.status==200)
+            {
+                alert("Your request for updation has been recieved successfully!");      
+            }
+      }
+      
+      
+      
+  </script>
+</head>
+
+
+<body>
+
+
+
+    
+<div class="container">
+<!--
+    <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" id="List">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+    </div>
+-->
+    <br><br><br>
+    <select class="custom-select .dropdown-info" size="3" id="select1">
+      <option selected>Open this select menu</option>
+      <option value="Village1">Village1</option>
+      <option value="Village2">Village2</option>
+      <option value="Village3">Village3</option>
+    </select> 
+    
+
+      
+    <button onclick="getOption()"> 
+        Select
+    </button>
+    
+    <div id="village_details" style="display:none;"> 
+        <br>
+        <h4>Name of the village:</h4>
+         
+        <span class="output"></span> 
+        <div id="resource_container">
+            
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Water:
+                </th>
+                <td>
+                    Water related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Electricity:
+                </th>
+                <td>
+                    Electricity related stuff here
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    Ration:
+                </th>
+                <td>
+                    Ration related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Weather:
+                </th>
+                <td>
+                    Weather related stuff here
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <button onclick="updateResources()"> 
+            Update Resources?
+        </button>
+    </div>
+        
+        
+    <div id="update_resources" style="display:none;">
+        <br><br>
+        
+            <input type="radio" value="water">Water
+            <input type="radio" value="electricity">Electricity
+            <input type="radio" value="ration">Ration
+            <input type="radio" value="weather">Weather
+            
+            <form id="update_form">
+            
+                New Values: <input type="text" id="new_value" name="new_value">
+                Message to consumer: <input type="text" id="message" name="message">
+                <button onclick="sendUpdatedDetails(event)"></button>
+                    
+            </form>
+        
+        </div>
+        
+    </div>
+</div>
+    
+
+
+</body>
+</html>

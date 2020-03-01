@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+      #resource_container{
+          width:100%;
+      }
+      
+/*
+      .table{
+          width: 100%;
+      }
+*/
+        
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    
+    #mapid { height: 180px; }
+  </style>
+    
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+  <script type="application/javascript" >
+      
+//          getLocation:function(){
+//              
+//          }
+          
+            //var x = document.getElementById("demo");
+        
+            function getLocation() {
+              console.log("1");
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+              } 
+              else 
+              {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+              }
+            }
+
+//            function showPosition(position) {
+////              x.innerHTML = "Latitude: " + position.coords.latitude +
+////              "<br>Longitude: " + position.coords.longitude;
+//                lat=position.coords.latitude;
+//                lon=position.coords.longitude;
+//                alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+////                AIzaSyCnnzF-Be-FiEcG76Xdm9nSQg5nJ-jKngw
+//                https://maps.googleapis.com/maps/api/staticmap?center=' +'13.012172800000002,77.6732672'+ "&zoom=14&size=400x300&sensor=false&key=AIzaSyA8pq5IiB3XpHZDX0jViKjbvtMeyJkyXTI
+//            }
+            function showPosition(position) {
+                 lat=position.coords.latitude;
+                 lon=position.coords.longitude;
+//                 var latlon = lat + "," + lon;
+//                alert(latlon);
+//                var img_url = 'https://maps.googleapis.com/maps/api/staticmap?center=' +latlon+ "&zoom=14&size=400x300&sensor=false&key=AIzaSyA8pq5IiB3XpHZDX0jViKjbvtMeyJkyXTI";
+//
+//                 document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+                   alert(lat+"  :  "+lon);
+                   var mymap = L.map('mapid').setView([lat, lon], 20);
+                                L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/1/1/0?access_token=pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 20,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ'
+                }).addTo(mymap);
+                bounds = new L.LatLngBounds([lat,lon],[lat,lon]);
+                mymap.fitBounds(bounds);
+            }
+      
+  </script>
+</head>
+
+
+<body onload="getLocation()">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Our name goes here!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Complaints</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>New Villager?</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
+<div class="container-fluid text-center">
+        
+    <div id="mapholder">
+    
+    </div>
+    
+</div>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1>Status Checks</h1>
+<!--      <p></p>-->
+      <hr>
+      <h4>Resource statuses are shown below</h4>
+        <br></br>
+        
+      <div id="resource_container">
+            
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Water:
+                </th>
+                <td>
+                    Water related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Electricity:
+                </th>
+                <td>
+                    Electricity related stuff here
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    Ration:
+                </th>
+                <td>
+                    Ration related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Weather:
+                </th>
+                <td>
+                    Weather related stuff here
+                </td>
+            </tr>
+        </table>
+          
+      </div>
+    </div>
+<!--
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+-->
+  </div>
+    
+  <div id="demo">
+    
+    
+  </div>
+</div>
+<div id="mapid" style="height:800px;"></div>
+<!--
+<footer class="container-fluid text-center footer navbar-fixed-bottom">
+  <p>For mobile support download our app <a><b><u>here</u></b></a></p>
+</footer>
+-->
+
+</body>
+</html>
+
+<!--MAPBOX API KEY: pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ-->
+
+
