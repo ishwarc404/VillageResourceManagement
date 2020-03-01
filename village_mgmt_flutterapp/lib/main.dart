@@ -4,11 +4,6 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-// class CallsAndMessagesService {
-//   void call(String number) => launch("tel:$number");
-//   void sendSms(String number) => launch("sms:$number");
-//   void sendEmail(String email) => launch("mailto:$email");
-// }
 
 void main() =>
     runApp(MaterialApp(title: "Village Management", home: MainActivity()));
@@ -242,7 +237,7 @@ class SecondPage extends StatelessWidget {
                     RaisedButton(
                       child: Text("Central Helpline",
                           style: TextStyle(fontSize: 30)),
-                      onPressed: _noRationButton,
+                      onPressed: _callCentralHepline,
                       color: Colors.red[600],
                       textColor: Colors.white,
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -267,4 +262,16 @@ class SecondPage extends StatelessWidget {
   _noRationButton() {
     print("NO RATION");
   }
+
+  _callCentralHepline() async {
+    print("calling central helpline");
+    // String telephoneUrl = "tel:26691781";
+
+    // if (await canLaunch(telephoneUrl)) {
+    //   await launch(telephoneUrl);
+    // } else {
+    //   throw "Can't phone that number.";
+    // }
+
+}
 }
