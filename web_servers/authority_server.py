@@ -158,7 +158,13 @@ def get_complaints():
     
 
     #now we need to access the complaints database
-    data_retrieved  = collection_handler.find({"complaint_resource_tag" : complaint_resource_tag},{"_id":0}) 
+    data_retrieved  = db4_handler.find({"complaint_resource_tag" : complaint_resource_tag},{"_id":0}) 
+    return json.dumps(list(data_retrieved))
+
+
+
+
+    
     
 
 
