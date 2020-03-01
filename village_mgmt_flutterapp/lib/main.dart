@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+// import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'dart:convert';
+
+// class CallsAndMessagesService {
+//   void call(String number) => launch("tel:$number");
+//   void sendSms(String number) => launch("sms:$number");
+//   void sendEmail(String email) => launch("mailto:$email");
+// }
 
 void main() =>
     runApp(MaterialApp(title: "Village Management", home: MainActivity()));
@@ -73,6 +79,19 @@ class _MainActivityState extends State {
                 SizedBox(width: 10),
                 RaisedButton(
                   child: Text("Weather", style: TextStyle(fontSize: 30)),
+                  onPressed: _getRationStatus,
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  splashColor: Colors.grey,
+                )
+              ]),
+              SizedBox(height: 30),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Image.asset("assets/crops.png", width: 80, height: 80),
+                SizedBox(width: 10),
+                RaisedButton(
+                  child: Text("Crops Price", style: TextStyle(fontSize: 30)),
                   onPressed: _getRationStatus,
                   color: Colors.blue,
                   textColor: Colors.white,
@@ -158,7 +177,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text("Help Page"),
       ),
       body: Container(
         child: Center(
@@ -183,17 +202,53 @@ class SecondPage extends StatelessWidget {
                         padding: EdgeInsets.all(0.0),
                         child: Image.asset('assets/no_water.jpg',
                             width: 150, height: 150))),
-               
               ]),
-               SizedBox(
-                  height: 20,
-                ),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                   child: RaisedButton(
                       onPressed: _noRationButton,
                       padding: EdgeInsets.all(0.0),
                       child: Image.asset('assets/no_ration.jpg',
-                          width: 150, height: 150)))
+                          width: 150, height: 150))),
+              SizedBox(
+                height: 80,
+              ),
+              Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    Image.asset("assets/phone.jpg", width: 45, height: 45),
+                    SizedBox(width: 15),
+                    RaisedButton(
+                        child: Text("Village Office",
+                            style: TextStyle(fontSize: 30)),
+                        onPressed: _noRationButton,
+                        color: Colors.red[600],
+                        textColor: Colors.white,
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        splashColor: Colors.grey),
+                  ])),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    Image.asset("assets/phone.jpg", width: 45, height: 45),
+                    SizedBox(width: 15),
+                    RaisedButton(
+                      child: Text("Central Helpline",
+                          style: TextStyle(fontSize: 30)),
+                      onPressed: _noRationButton,
+                      color: Colors.red[600],
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      splashColor: Colors.grey,
+                    ),
+                  ])),
             ],
           ), //column ends
         ),
@@ -208,7 +263,8 @@ class SecondPage extends StatelessWidget {
   _noElectricityButton() {
     print("NO ELECTRICITY");
   }
-    _noRationButton() {
+
+  _noRationButton() {
     print("NO RATION");
   }
 }
