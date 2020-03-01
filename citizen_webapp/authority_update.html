@@ -4,57 +4,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    
+      #select1{
+          
+          width:100%;
+          height:inherit;
+      }
+      activated{
+          display:block;
+      }
+/*
+      option{
+          padding: 100px;
+      }
+*/
+        .wrapper {
+        margin: 0 auto;
+        width: 960px;
+        }
+
+        .column {
+        float: left;
+        width: 33%;
+        }
+      
+      
+  </style>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
   <script type="application/javascript" >
       
-        document.getElementsByClassName("dropdown-menu").addEventListener("click",loadVillage);
-        loadVillage=function(){
-            console.log("1");
-        }
+//        dd.addEventListener("click",loadVillage);
+//        loadVillage=function()
+//        {
+//            console.log("1");
+//        }
 //      $(".dropdown ul li").click(function(){
 //        alert("hi");
 //      });
+        function getOption() {
+            console.log('1');
+            selectElement =  document.querySelector('#select1'); 
+                      
+            output = selectElement.value; 
+  
+            document.querySelector('.output').textContent = output; 
+            showDiv();
+        }
+          function showDiv() {
+            console.log("2");
+            document.getElementById('village_details').style.display = "block";
+        }
+      
+        function updateResources()
+        {
+            showUpdateDiv();
+        }
+      
+        function showUpdateDiv() {
+            console.log("2");
+            document.getElementById('update_resources').style.display = "block";
+        }
+      
+      
       
   </script>
+</head>
+
+
 <body>
 
-<!--
-<div class="container">
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>                        
-          </button>
-          <a class="navbar-brand" href="#">Our name goes here!</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Complaints</a></li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>New Villager?</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
--->
+
+
     
 <div class="container">
+<!--
     <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
     <span class="caret"></span></button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="List">
       <li><a href="#">HTML</a></li>
       <li><a href="#">CSS</a></li>
       <li><a href="#">JavaScript</a></li>
     </ul>
+    </div>
+-->
+    <br><br><br>
+    <select class="custom-select .dropdown-info" size="3" id="select1">
+      <option selected>Open this select menu</option>
+      <option value="Village1">Village1</option>
+      <option value="Village2">Village2</option>
+      <option value="Village3">Village3</option>
+    </select> 
+    
+
+      
+    <button onclick="getOption()"> 
+        Select
+    </button>
+    
+    <div id="village_details" style="display:none;"> 
+        <br>
+        <h4>Name of the village:</h4>
+         
+        <span class="output"></span> 
+        <div id="resource_container">
+            
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Water:
+                </th>
+                <td>
+                    Water related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Electricity:
+                </th>
+                <td>
+                    Electricity related stuff here
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    Ration:
+                </th>
+                <td>
+                    Ration related stuff here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Weather:
+                </th>
+                <td>
+                    Weather related stuff here
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <button onclick="updateResources()"> 
+            Update Resources?
+        </button>
+    </div>
+        
+        
+    <div id="update_resources" style="display:none;">
+        <br><br>
+        
+        
+        
+        </div>
+        
     </div>
 </div>
     
