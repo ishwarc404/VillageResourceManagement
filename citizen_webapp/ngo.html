@@ -14,6 +14,8 @@
       border-radius: 0;
     }
     
+      
+      
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 650px}
     
@@ -40,6 +42,7 @@
           width: 100%;
       }
 */
+
         
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -49,103 +52,160 @@
       }
       .row.content {height:auto;} 
     }
+      
+      #select1{
+          
+          width:100%;
+          height:inherit;
+      }
   </style>
     
     
   <script type="application/javascript" >
       
-//          getLocation:function(){
-//              
-//          }
-          
-            //var x = document.getElementById("demo");
+        function getOption() {
+            console.log('1');
+            selectElement =  document.querySelector('#select1'); 
+                      
+            output = selectElement.value; 
+  
+            document.querySelector('.output').textContent = output; 
+            showDiv();
+        }
         
-            function getLocation() {
-              console.log("1");
-              if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-              } 
-              else 
-              {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-              }
-            }
-
-            function showPosition(position) {
-//              x.innerHTML = "Latitude: " + position.coords.latitude +
-//              "<br>Longitude: " + position.coords.longitude;
-                alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
-            }
+        //displays the div which was hidden
+        function showDiv()
+        {
+            document.getElementById('village_report').style.display = "block";
+        }
+      
+        function postJobs()
+        {
+            document.getElementById('post_job').style.display = "block";
+        }
+           
+        function sendJob(event)
+        {
+            
+            event.preventDefault();
+            job_pos=document.getElementById("job_pos");
+            no_pos=document.getElementById("no_pos");
+            qualification=document.querySelector('input[name="rb1"]:checked').value;
+            console.log(job_pos);
+            console.log(no_pos);
+            console.log(qualification);
+            xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=showReply;
+//            form=new FormData();
+//            
+//            form.append("job_pos",job_pos);
+//			form.append("no_pos",no_pos);
+//            form.append("qualification",qualification);
+//            xhr.open("POST","<link to server>",true);
+//			xhr.send(form);
+        
+        }
+          function showReply()
+          {
+              if(xhr.readyState==4 && xhr.status==200)
+                {
+                    alert("Your request for updation has been recieved successfully!");      
+                }
+          }
   </script>
 </head>
 
 
-<body onload="getLocation()">
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Our name goes here!</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Complaints</a></li>
-        <li><a href="#">Contact Us</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>New Villager?</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  
+<body>
 <div class="container-fluid text-center">    
+<!--
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+      
+  </div>
+-->
+  <div>
+
+        <select class="custom-select .dropdown-info" size="3" id="select1">
+          <option selected>Select your village: </option>
+          <option value="Village1">Village1</option>
+          <option value="Village2">Village2</option>
+          <option value="Village3">Village3</option>
+        </select> 
+
+        <button onclick="getOption()"> 
+            Get Report
+        </button>
     </div>
       
-    <div class="col-sm-8 text-left"> 
-      <h1>Status Checks</h1>
-<!--      <p></p>-->
-      <hr>
-      <h4>Resource statuses are shown below</h4>
-        <br></br>
+    <div id="village_report" style="display:none;">
+        Village Name: <span class="output"></span> 
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Population:
+                </th>
+                <td>
+                    Population related info here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Education Level:
+                </th>
+                <td>
+                    Education related info here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    # Health Care Centres:
+                </th>
+                <td>
+                    Health related info here
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Contact Village Ambassador to Collaborate
+                </th>
+                <td>
+                    Contact Village relaed info here.
+                </td>
+            </tr>
+    </table>
+      <br>
+      <button onclick="postJobs()">Post Jobs</button>
         
-      <div id="resource_container">
+    </div>
+    
+<!--    This contains the posting job part!-->
+    
+    <div id="post_job" style="display: none;">
+        <form>
+            <div class="form-group">
+                    <input type="text" name="job_pos" id="job_pos" placeholder="Job Position">
+
+            </div>
             
-        NGO MANAGEMENT GOES HERE
-          
-      </div>
+            <div class="form-group">
+                    <input type="text" name="no_pos" id="no_pos" placeholder="Number of Positions"> 
+            </div>
+            
+            Qualifications:<br>
+            <input type="radio" name="rb1" value="class10">Class 10
+            <br>
+            <input type="radio" name="rb1" value="class12">Class 12
+            <br>
+            <input type="radio" name="rb1" value="others">Others
+            <br>
+            <button type="submit" class="btn btn-primary" onclick="sendJob(event)">Submit</button>
+        </form>
+
+        
     </div>
-<!--
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
--->
-  </div>
-    
-  <div id="demo">
-    
-    
-  </div>
 </div>
 
-<footer class="container-fluid text-center">
+<footer class="container-fluid text-center footer navbar-fixed-bottom">
   <p>For mobile support download our app <a><b><u>here</u></b></a></p>
 </footer>
 
