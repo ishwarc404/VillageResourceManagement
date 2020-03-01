@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'dart:convert';
-
 
 void main() =>
     runApp(MaterialApp(title: "Village Management", home: MainActivity()));
@@ -122,34 +122,74 @@ class _MainActivityState extends State {
   }
 
   _getWaterStatus() async {
-    var url = 'https://api.myjson.com/bins/7hf4q';
+    var url = 'http://192.168.43.237:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);
-    print(data["resource"]);
+    data = data["water"];
     setState(() {
-      msg = data["resource"] + "\n" + data["status"] + "\n" + data["time"];
+      msg = data["resource_name"] +
+          "\n" +
+          "Status: " +
+          data["resource_state"] +
+          "\n" +
+          "Time: " +
+          data["resource_activation_time"] +
+          "-" +
+          data["resource_deactivation_time"] +
+          "\n" +
+          "Date: " +
+          data["resource_activation_date"] +
+          "-" +
+          data["resource_deactivation_date"];
     });
   }
 
   _getElectricityStatus() async {
-    var url = 'https://api.myjson.com/bins/7hf4q';
-
+    var url = 'http://192.168.43.237:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);
+    data = data["electricity"];
     setState(() {
-      msg = data["resource"] + "\n" + data["status"] + "\n" + data["time"];
+      msg = data["resource_name"] +
+          "\n" +
+          "Status: " +
+          data["resource_state"] +
+          "\n" +
+          "Time: " +
+          data["resource_activation_time"] +
+          "-" +
+          data["resource_deactivation_time"] +
+          "\n" +
+          "Date: " +
+          data["resource_activation_date"] +
+          "-" +
+          data["resource_deactivation_date"];
     });
   }
 
   _getRationStatus() async {
-    var url = 'https://api.myjson.com/bins/7hf4q';
+    var url = 'http://192.168.43.237:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);
+    data = data["ration"];
     setState(() {
-      msg = data["resource"] + "\n" + data["status"] + "\n" + data["time"];
+      msg = data["resource_name"] +
+          "\n" +
+          "Status: " +
+          data["resource_state"] +
+          "\n" +
+          "Time: " +
+          data["resource_activation_time"] +
+          "-" +
+          data["resource_deactivation_time"] +
+          "\n" +
+          "Date: " +
+          data["resource_activation_date"] +
+          "-" +
+          data["resource_deactivation_date"];
     });
   }
 
@@ -272,6 +312,5 @@ class SecondPage extends StatelessWidget {
     // } else {
     //   throw "Can't phone that number.";
     // }
-
-}
+  }
 }

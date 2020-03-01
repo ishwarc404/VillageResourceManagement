@@ -1,7 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,abort,request
 from pymongo import MongoClient
 import requests
-
+import json
 app = Flask(__name__)
 
 #THIS IS THE MAIN AUTHORITY SERVER
@@ -31,9 +31,10 @@ resource_db_data = {
     "resource_name" : "",
     "resource_state" : "",
     "resource_activation_time" : "",
-    "resouce_deactivation_time" : "",
+    "resource_deactivation_time" : "",
     "resource_activation_date" : "",
-    "resouce_deactivation_date" : "",
+    "resource_deactivation_date" : "",
+    "message" : ""
     
 }
 
@@ -68,36 +69,48 @@ def index_page():
 @app.route("/update_resource",methods=["POST"])
 def update_resource_status():
     #getting all the data in json format , made as an API call
-    try:
-        resource_db_data["village_name"] = request.get_json()["resource_name"]
-        resource_db_data["resource_name"] = request.get_json()["resource_name"]
-        resource_db_data["resource_state"] = request.get_json()["resource_state"]
-        resource_db_data["resource_activation_time"] = request.get_json()["resource_activation_time"]
-        resource_db_data["resouce_deactivation_time"] = request.get_json()["resouce_deactivation_time"]
-        resource_db_data["resource_activation_date"] = request.get_json()["resource_activation_date"]
-        resource_db_data["resouce_deactivation_date"] = request.get_json()["resouce_deactivation_date"]
-    except:
-        abort(400)
 
+    try:
+        filee  = open("update_resources.json","r+")
+        data_read = json.loads(filee.read())
+        resource_name = request.get_json()["resource_name"]
+        data_read[resource_name]["village_name"] = request.get_json()["village_name"]
+        data_read[resource_name]["resource_name"] = request.get_json()["resource_name"]
+        data_read[resource_name]["resource_state"] = request.get_json()["resource_state"]
+        data_read[resource_name]["resource_activation_time"] = request.get_json()["resource_activation_time"]
+        data_read[resource_name]["resource_deactivation_time"] = request.get_json()["resource_deactivation_time"]
+        data_read[resource_name]["resource_activation_date"] = request.get_json()["resource_activation_date"]
+        data_read[resource_name]["resource_deactivation_date"] = request.get_json()["resource_deactivation_date"]
+        data_read[resource_name]["message"] = request.get_json()["message"]
+    except Exception as e:
+        print(e)
+        print("came into the execption")
+
+    print("heree")
     #now we just need to update the specific village's ; specific resources
     #let's access the village records
     #we need to access only those records where village name and resource name matches
+    """
+    NOT CONNECTING TO MONGO
+    DIRECTLY STORING AS A JSON FILE AND USING FTP LATER ON
+    """
+    filee.seek(0)
+    filee.write(json.dumps(data_read))
+    filee.truncate()
+    filee.close()
 
-    try:
-        new_record = resource_db_data
-        newvalues = { "$set": new_record }
-
-        myquery = {"village_name": village_name}
-        db1_handler.update_one(myquery, newvalues) #find the document with myquery and update it with the newvalues
-        return 1
-    except:
-        return 0
-
+@app.route("/get_resource",methods=["GET","POST"])
+def get_resource_status():
+    filee = open("update_resources.json","r")
+    data_read = json.loads(filee.read())
+    print(data_read)
+    return data_read
 
 @app.route("/add_villager",methods=["POST"])
 def add_villager():
     #this function will allow us to add a new villager to the databasesystem
     try:
+        print(request.get_json())
         villager_db_data["villager_name"] = request.get_json()["villager_name"]
         villager_db_data["villager_identification"] = request.get_json()["villager_identification"]
         villager_db_data["village_name"] = requests.get_json()["village_name"]
@@ -108,6 +121,7 @@ def add_villager():
     except:
         abort(400)
     
+    print("coming here")
     #now we just need to insert this data into the db
     #NOT DOING ANY ERROR HANDLING RIGHT NOW AS WE DO NOT HAVE MUCH TIME
     
@@ -164,16 +178,6 @@ def get_complaints():
 
 
 
-    
-    
-
-
-
-
-
-
-    
-
 
 if __name__ == "__main__" :
-    app.run(debug=True,port=5001)
+    app.run(debug=True,port=5001,host="0.0.0.0")

@@ -1,111 +1,180 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <style>
-    
-      #select1{
-          
-          width:100%;
-          height:inherit;
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      #select1 {
+        width: 100%;
+        height: inherit;
       }
-      activated{
-          display:block;
+      activated {
+        display: block;
       }
-/*
+      /*
       option{
           padding: 100px;
       }
 */
-        .wrapper {
+      .wrapper {
         margin: 0 auto;
         width: 960px;
-        }
+      }
 
-        .column {
+      .column {
         float: left;
         width: 33%;
-        }
-      
-      
-  </style>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script type="application/javascript" >
-      
-//        dd.addEventListener("click",loadVillage);
-//        loadVillage=function()
-//        {
-//            console.log("1");
-//        }
-//      $(".dropdown ul li").click(function(){
-//        alert("hi");
-//      });
-        function getOption() {
-            console.log('1');
-            selectElement =  document.querySelector('#select1'); 
-                      
-            output = selectElement.value; 
-  
-            document.querySelector('.output').textContent = output; 
-            showDiv();
-        }
-          function showDiv() {
-            console.log("2");
-            document.getElementById('village_details').style.display = "block";
-        }
-      
-        function updateResources()
-        {
-            showUpdateDiv();
-        }
-      
-        function showUpdateDiv() {
-            console.log("2");
-            document.getElementById('update_resources').style.display = "block";
-        }
-      
-        //to send new details to update the database
-        function sendUpdatedDetails(event)
-        {
-            
-            event.preventDefault();
-            updateform_newvalues=document.getElementById("new_value");
-            updateform_message=document.getElementById("message");
-            xhr=new XMLHttpRequest();
-            xhr.onreadystatechange=showReply;
-            form=new FormData();
-            
-            form.append("newvalue",updateform_newvalues);
-			form.append("message",updateform_message);
-            
-            xhr.open("POST","<link to server>",true);
-			xhr.send(form);
-        
-        }
-      
-      function showReply()
-      {
-          if(xhr.readyState==4 && xhr.status==200)
-            {
-                alert("Your request for updation has been recieved successfully!");      
-            }
       }
-      
-      
-      
-  </script>
-</head>
 
+      body {
+        background-color: azure;
+      }
 
-<body>
+      .navcolor {
+        background-color: #00203fff;
+        color: #adefd1ff;
+      }
 
+      update_form input {
+        padding-bottom: 10px;
+      }
+      input {
+        padding: 10px;
+        margin-bottom: 5px;
+      }
+      option {
+        padding: 10px;
+      }
+      hr {
+        color: red;
+      }
+    </style>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="application/javascript">
+      //        dd.addEventListener("click",loadVillage);
+      //        loadVillage=function()
+      //        {
+      //            console.log("1");
+      //        }
+      //      $(".dropdown ul li").click(function(){
+      //        alert("hi");
+      //      });
+      function getOption() {
+        console.log("1");
+        selectElement = document.querySelector("#select1");
 
+        output = selectElement.value;
 
-    
-<div class="container">
-<!--
+        document.querySelector(".output").textContent = output;
+        showDiv();
+      }
+      function showDiv() {
+        console.log("2");
+        document.getElementById("village_details").style.display = "block";
+      }
+
+      function updateResources() {
+        showUpdateDiv();
+      }
+
+      function showUpdateDiv() {
+        console.log("2");
+        document.getElementById("update_resources").style.display = "block";
+      }
+
+      //to send new details to update the database
+      //to send new details to update the database
+      function sendUpdatedDetails(event) {
+        event.preventDefault();
+        resource_name = document.querySelector(
+          'input[name="resource_name"]:checked'
+        ).value;
+        resource_state = document.querySelector(
+          'input[name="resource_state"]:checked'
+        ).value;
+        message = document.getElementById("message").value;
+        resource_activation_date = document.getElementById(
+          "resource_activation_date"
+        ).value;
+
+        resource_activation_time = document.getElementById(
+          "resource_activation_time"
+        ).value;
+        resource_deactivation_date = document.getElementById(
+          "resource_deactivation_date"
+        ).value;
+        resource_deactivation_time = document.getElementById(
+          "resource_deactivation_time"
+        ).value;
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = showReply;
+        data = {
+          village_name: "",
+          resource_name: "",
+          resource_state: "",
+          resource_activation_time: "",
+          resource_deactivation_time: "",
+          resource_activation_date: "",
+          resource_deactivation_date: "",
+          message: ""
+        };
+        data["village_name"] = "village1";
+        data["resource_name"] = resource_name;
+        data["resource_state"] = resource_state;
+        data["resource_activation_time"] = resource_activation_time;
+        data["resource_deactivation_time"] = resource_deactivation_time;
+        data["resource_activation_date"] = resource_activation_date;
+        data["resource_deactivation_date"] = resource_deactivation_date;
+        data["message"] = message;
+        console.log(JSON.stringify(data));
+        xhr.open("POST", "/update_resource", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify(data));
+      }
+
+      function showReply() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          alert("Your request for updation has been recieved successfully!");
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navcolor">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Our name goes here!</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="village_add.html">Add Village</a></li>
+            <li><a href="villager_add.html">Add Villager</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!--
     <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
     <span class="caret"></span></button>
@@ -116,91 +185,143 @@
     </ul>
     </div>
 -->
-    <br><br><br>
-    <select class="custom-select .dropdown-info" size="3" id="select1">
-      <option selected>Open this select menu</option>
-      <option value="Village1">Village1</option>
-      <option value="Village2">Village2</option>
-      <option value="Village3">Village3</option>
-    </select> 
-    
+      <h3>Authority Update</h3>
+      <br /><br /><br />
+      <select class="custom-select dropdown-success" size="3" id="select1">
+        <option value="Village1" selected>Village1</option>
+        <option value="Village2">Village2</option>
+        <option value="Village3">Village3</option>
+      </select>
 
-      
-    <button onclick="getOption()"> 
+      <button onclick="getOption()">
         Select
-    </button>
-    
-    <div id="village_details" style="display:none;"> 
-        <br>
-        <h4>Name of the village:</h4>
-         
-        <span class="output"></span> 
+      </button>
+
+      <div id="village_details" style="display:none;">
+        <br />
+        <h4>
+          <b>Name of the village:</b><i><span class="output"></span></i>
+        </h4>
+
         <div id="resource_container">
-            
-        <table class="table table-hover">
+          <table class="table table-hover">
             <tr>
-                <th>
-                    Water:
-                </th>
-                <td>
-                    Water related stuff here
-                </td>
+              <th>
+                Water:
+              </th>
+              <td>
+                Water related stuff here
+              </td>
             </tr>
             <tr>
-                <th>
-                    Electricity:
-                </th>
-                <td>
-                    Electricity related stuff here
-                </td>
+              <th>
+                Electricity:
+              </th>
+              <td>
+                Electricity related stuff here
+              </td>
             </tr>
-            
+
             <tr>
-                <th>
-                    Ration:
-                </th>
-                <td>
-                    Ration related stuff here
-                </td>
+              <th>
+                Ration:
+              </th>
+              <td>
+                Ration related stuff here
+              </td>
             </tr>
             <tr>
-                <th>
-                    Weather:
-                </th>
-                <td>
-                    Weather related stuff here
-                </td>
+              <th>
+                Weather:
+              </th>
+              <td>
+                Weather related stuff here
+              </td>
             </tr>
-        </table>
-        <hr>
-        <button onclick="updateResources()"> 
+          </table>
+
+          <button onclick="updateResources()">
             Update Resources?
-        </button>
-    </div>
-        
-        
-    <div id="update_resources" style="display:none;">
-        <br><br>
-        
-            <input type="radio" value="water">Water
-            <input type="radio" value="electricity">Electricity
-            <input type="radio" value="ration">Ration
-            <input type="radio" value="weather">Weather
-            
-            <form id="update_form">
-            
-                New Values: <input type="text" id="new_value" name="new_value">
-                Message to consumer: <input type="text" id="message" name="message">
-                <button onclick="sendUpdatedDetails(event)"></button>
-                    
-            </form>
-        
+          </button>
+          <hr height="100" />
         </div>
-        
+
+        <div id="update_resources" style="display:none;">
+          <b>Select resource type:</b>
+          <form id="update_form">
+            <input type="radio" name="resource_name" value="water" />Water
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+              type="radio"
+              name="resource_name"
+              value="electricity"
+            />Electricity
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="resource_name" value="ration" />Ration
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="resource_name" value="weather" />Weather
+            <br />
+
+            <b>Enter Resource State:</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="resource_state" value="active" />Active
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+              type="radio"
+              name="resource_state"
+              value="inactive"
+            />Inactive
+            <br />
+            <b>Message to consumer:</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+              type="text"
+              id="message"
+              name="message"
+              class="form-group"
+              size="50"
+            />
+            <br />
+
+            <b>Resource Activation Date:</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+              type="date"
+              id="resource_activation_date"
+              name="resource_activation_date"
+              class="form-group"
+            />
+            <br />
+            <b>Resource Deactivation Date:</b> &nbsp;&nbsp;&nbsp;<input
+              type="date"
+              id="resource_deactivation_date"
+              name="resource_deactivation_date"
+              class="form-group"
+            />
+            <br />
+            <b>Resource Activation time :</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+              type="time"
+              id="resource_activation_time"
+              name="resource_activation_time"
+              class="form-group"
+            />
+            <br />
+            <b>Resource Deactivation time :</b> &nbsp;&nbsp;&nbsp;<input
+              type="time"
+              id="resource_deactivation_time"
+              name="resource_deactivation_time"
+              class="form-group"
+            />
+            <br />
+
+            <br />
+            <button onclick="sendUpdatedDetails(event)">Update</button>
+          </form>
+          <br />
+        </div>
+      </div>
     </div>
-</div>
-    
-
-
-</body>
+    <footer class="container-fluid text-center footer navbar-fixed-bottom">
+      <br />
+    </footer>
+  </body>
 </html>
