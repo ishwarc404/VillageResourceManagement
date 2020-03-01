@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add Village</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    
+      body{
+          background-color: lightblue;
+      }
+      
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <br>
+  <form class="form-horizontal" action="/action_page.php">
+      
+      
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_name">Aadhar Number: </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_name" placeholder="Enter your Aadhar number" name="village_name">
+      </div>
+    </div>
+      
+      
+      
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_pos_lat">Village Latitude </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_pos_lat" placeholder="Enter your Village Latitude" name="village_pos_lat">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_pos_lon">Village Longitude </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_pos_lon" placeholder="Enter your Village Longitude" name="village_pos_lon">
+      </div>
+    </div>
+      
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_population">Village Population </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_population" placeholder="Enter your Village Population" name="village_population">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_state">Village state </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_state" placeholder="Enter your Village State" name="village_state">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_govt_auth">Village Govt Auth </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_govt_auth" placeholder="Enter your Village Govt auth" name="village_govt_auth">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_govt_auth_contact">Village Govt Auth Contact </label>
+      <div class="col-sm-10">          
+        <input type="number" class="form-control" id="village_govt_auth_contact" placeholder="Enter your Village Govt auth contact" name="village_govt_auth_contact">
+      </div>
+    </div>
+      
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_local_auth">Village Local Auth </label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="village_local_auth" placeholder="Enter your Village Local Auth" name="village_local_auth">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="village_local_auth_contact">Village Local Auth Contact </label>
+      <div class="col-sm-10">          
+        <input type="number" class="form-control" id="village_local_auth_contact" placeholder="Enter your Local Auth Contact" name="village_local_auth_contact">
+      </div>
+    </div>
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
