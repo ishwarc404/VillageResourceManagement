@@ -28,6 +28,31 @@
         float: left;
         width: 33%;
         }
+        
+      body{
+          background-color: azure;
+      }
+      
+      .navcolor{
+          background-color: #00203FFF;
+          color:#ADEFD1FF;
+      }
+      
+      update_form input{
+          padding-bottom: 10px;
+      }
+      input{
+          padding:10px;
+          margin-bottom: 5px;
+      }
+      option{
+          padding: 10px;
+      }
+      hr{
+          color:red;
+      }
+      
+      
       
       
   </style>
@@ -116,7 +141,7 @@
 
 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navcolor">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -153,9 +178,8 @@
 -->
     <h3>Authority Update</h3>
     <br><br><br>
-    <select class="custom-select .dropdown-info" size="3" id="select1">
-      <option selected>Open this select menu</option>
-      <option value="Village1">Village1</option>
+    <select class="custom-select dropdown-success" size="3" id="select1">
+      <option value="Village1" selected>Village1</option>
       <option value="Village2">Village2</option>
       <option value="Village3">Village3</option>
     </select> 
@@ -168,9 +192,9 @@
     
     <div id="village_details" style="display:none;"> 
         <br>
-        <h4>Name of the village:</h4>
+        <h4><b>Name of the village:</b><i><span class="output"></span></i></h4>
          
-        <span class="output"></span> 
+        
         <div id="resource_container">
             
         <table class="table table-hover">
@@ -208,41 +232,48 @@
                 </td>
             </tr>
         </table>
-        <hr>
+        
         <button onclick="updateResources()"> 
             Update Resources?
         </button>
+            <hr height=100>
     </div>
         
         
     <div id="update_resources" style="display:none;">
-        <br><br>
+        
         
 
-            
+            <b>Select resource type:</b>
             <form id="update_form">
-                <h5>Select resource type:</h5>
+                
                 <input type="radio" name="resource_name" value="water">Water
-               
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" name="resource_name" value="electricity">Electricity
-                   
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" name="resource_name" value="ration">Ration
-                    
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" name="resource_name" value="weather">Weather
                     <br>
+                    
+                    <b>Enter Resource State:</b>                                                                                                                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="resource_state" value="active">Active
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="resource_state" value="inactive">Inactive
+                    <br>
+                    <b>Message to consumer:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="message" name="message" class="form-group" size=50>
+                <br>
+                    
+                    <b>Resource Activation Date:</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="resource_activation_date" name="resource_activation_date" class="form-group">
+                    <br>
+                    <b>Resource Deactivation Date:</b> &nbsp;&nbsp;&nbsp;<input type="date" id="resource_deactivation_date" name="resource_deactivation_date" class="form-group">
+                        <br>
+                    <b>Resource Activation time :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="time" id="resource_activation_time" name="resource_activation_time" class="form-group">
+                                        <br>
+                    <b>Resource Deactivation time :</b> &nbsp;&nbsp;&nbsp;<input type="time" id="resource_deactivation_time" name="resource_deactivation_time" class="form-group">
+                    <br>
+                    
 
-                    New Values: <input type="text" id="resource_state" name="resource_state">
-                    <br>
-                    Resource Activation time : <input type="time" id="resource_activation_time" name="resource_activation_time">
-                    <br>
-                    Resource Activation Date: <input type="date" id="resource_activation_date" name="resource_activation_date">
-                    <br>
-
-                    Resource Deactivation time : <input type="time" id="resource_deactivation_time" name="resource_deactivation_time">
-                    <br>
-                    Resource Deactivation Date: <input type="date" id="resource_deactivation_date" name="resource_deactivation_date">
-                    <br>
-                    Message to consumer: <input type="text" id="message" name="message">
                     <br>
                     <button onclick="sendUpdatedDetails(event)">Update</button>
                     

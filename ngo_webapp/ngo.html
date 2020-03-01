@@ -42,7 +42,25 @@
           width: 100%;
       }
 */
-
+    .navcolor{
+          background-color: #00203FFF;
+          color:#ADEFD1FF;
+      }
+    
+      input[type='text']{
+          padding: 10px;
+          width:50%;
+      }
+       input[type='radio']{
+           margin-left:none;
+      }     
+      option{
+          padding: 10px;
+      }
+      input[type='text']{
+          padding: 10px;
+          width:50%;
+      }
         
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -117,7 +135,7 @@
 
 
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navcolor">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -163,7 +181,8 @@
     </div>
       
     <div id="village_report" style="display:none;">
-        Village Name: <span class="output"></span> 
+        <br>
+        <b>Village Name:</b><i> <span class="output"></span> </i>
         <table class="table table-hover">
             <tr>
                 <th>
@@ -200,11 +219,11 @@
     </table>
       <br>
       <button onclick="postJobs()">Post Jobs</button>
-        
+      <hr>
     </div>
     
 <!--    This contains the posting job part!-->
-    
+    <br>
     <div id="post_job" style="display: none;">
         <form>
             <div class="form-group">
@@ -216,19 +235,14 @@
                     <input type="text" name="no_pos" id="no_pos" placeholder="Number of Positions"> 
             </div>
             
-            Qualifications:<br>
-            <input type="radio" name="rb1" value="class10">Class 10
-            <br>
-            <input type="radio" name="rb1" value="class12">Class 12
-            <br>
-            <input type="radio" name="rb1" value="others">Others
             <br>
             <button type="submit" class="btn btn-primary" onclick="sendJob(event)">Submit</button>
         </form>
-
+        
         
     </div>
 </div>
+    <br><br><br><br>
 
 <footer class="container-fluid text-center footer navbar-fixed-bottom">
   <p>For mobile support download our app <a><b><u>here</u></b></a></p>
