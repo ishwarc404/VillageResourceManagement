@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Leaflet sample</title>
+    <title>Remote Villages</title>
     <link
       rel="stylesheet"
       href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
     />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-  </head>
-
-  <body>
-    <div id="map" style="width: 900px; height: 580px"></div>
-    <script>
+        <script>
       function getLocation() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
@@ -27,15 +23,19 @@
         console.log(lat);
         lon = position.coords.longitude;
         console.log(lon);
-        display();
+        display(15.3173,75.7139);
+        //display(15.35,76.55);
+//        display();
+//        display();
+//        display();
       }
       getLocation();
-
-      function display() {
+      
+      function display(lat,lon) {
         // Creating map options
         var mapOptions = {
-          center: [lat, lon],
-          zoom: 15
+          center: [lat,lon],
+          zoom: 7
         };
 
         // Creating a map object
@@ -48,14 +48,27 @@
 
         //adding marker
         // Creating a marker
-        var marker = L.marker([lat, lon]);
-
+        var marker1 = L.marker([17.570721,76.569733],{ title: "Aland" });
+        var marker2= L.marker([15.35,76.55],{ title: "Bukkasandra" });
+        var marker3= L.marker([16.73,75.07],{ title: "Athni" });
+        var marker4= L.marker([13.840,75.702],{ title: "Badravati" });
+        var marker5= L.marker([17.9,77.5],{ title: "Bidar" });
         // Adding marker to the map
-        marker.addTo(map);
+        marker1.addTo(map);
+        marker2.addTo(map);
+        marker3.addTo(map);
+        marker4.addTo(map);
+        marker5.addTo(map);
 
         // Adding layer to the map
         map.addLayer(layer);
       }
+    
     </script>
+  </head>
+
+  <body>
+    <div id="map" style="width: 100%; height: 580px"></div>
+    
   </body>
 </html>
