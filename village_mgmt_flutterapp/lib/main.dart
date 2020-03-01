@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
-void main() => runApp(MaterialApp(title: "Village Management", home: MainActivity()));
+void main() =>
+    runApp(MaterialApp(title: "Village Management", home: MainActivity()));
 
 class MainActivity extends StatefulWidget {
   @override
@@ -21,10 +25,9 @@ class _MainActivityState extends State {
         child: Center(
           child: Column(
             children: [
-            SizedBox(height: 30),
+              SizedBox(height: 30),
               RaisedButton(
-                
-                child: Text("Water Status",style: TextStyle(fontSize: 30)),
+                child: Text("Water Status", style: TextStyle(fontSize: 30)),
                 onPressed: _getWaterStatus,
                 color: Colors.blue,
                 textColor: Colors.white,
@@ -33,7 +36,8 @@ class _MainActivityState extends State {
               ),
               SizedBox(height: 30),
               RaisedButton(
-                child: Text("Electricity Status",style: TextStyle(fontSize: 30)),
+                child:
+                    Text("Electricity Status", style: TextStyle(fontSize: 30)),
                 onPressed: _getElectricityStatus,
                 color: Colors.blue,
                 textColor: Colors.white,
@@ -42,16 +46,16 @@ class _MainActivityState extends State {
               ),
               SizedBox(height: 30),
               RaisedButton(
-                child: Text("Ration Status",style: TextStyle(fontSize: 30)),
+                child: Text("Ration Status", style: TextStyle(fontSize: 30)),
                 onPressed: _getRationStatus,
                 color: Colors.blue,
                 textColor: Colors.white,
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 splashColor: Colors.grey,
               ),
-                SizedBox(height: 30),
-               RaisedButton(
-                child: Text("Weather Status",style: TextStyle(fontSize: 30)),
+              SizedBox(height: 30),
+              RaisedButton(
+                child: Text("Weather Status", style: TextStyle(fontSize: 30)),
                 onPressed: _getRationStatus,
                 color: Colors.blue,
                 textColor: Colors.white,
@@ -59,17 +63,17 @@ class _MainActivityState extends State {
                 splashColor: Colors.grey,
               ),
               SizedBox(height: 40),
-              Container ( 
+              Container(
                 margin: const EdgeInsets.all(30.0),
                 padding: const EdgeInsets.all(10.0),
                 decoration: myBoxDecoration(),
-                child: 
-                Text(
-                msg,
-                style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
-                
-              ))
-              ,
+                child: Column(children: [
+                  Text(
+                    msg,
+                    style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  )
+                ]),
+              ),
             ],
           ),
         ),
@@ -77,28 +81,38 @@ class _MainActivityState extends State {
     );
   }
 
-  _getWaterStatus() {
-    var data = "ishwar";
+  _getWaterStatus() async {
+    var url = 'https://api.myjson.com/bins/7hf4q';
+    var response = await http.get(url);
+    print('Response body: ${response.body}');
+    var data = json.decode(response.body);
+    print(data["resource"]);
     setState(() {
-      msg = data;
+      msg = data["resource"] +"\n" +data["status"]+"\n" +data["time"];
     });
   }
-  _getElectricityStatus() {
+
+  _getElectricityStatus() async {
+    var url = 'https://api.myjson.com/bins/tc116';
+    var response = await http.get(url);
+    print('Response body: ${response.body}');
+    var data = json.decode(response.body);
+    print(data["name"]);
+    print(data["age"]);
     setState(() {
-      if (msg.startsWith('F')) {
-        msg = 'I have learned FlutterRaised example ';
-      } else {
-        msg = 'Flutter RaisedButton example';
-      }
+      msg = "data";
     });
   }
-  _getRationStatus() {
+
+  _getRationStatus() async {
+    var url = 'https://api.myjson.com/bins/tc116';
+    var response = await http.get(url);
+    print('Response body: ${response.body}');
+    var data = json.decode(response.body);
+    print(data["name"]);
+    print(data["age"]);
     setState(() {
-      if (msg.startsWith('F')) {
-        msg = 'I have learned FlutterRaised example ';
-      } else {
-        msg = 'Flutter RaisedButton example';
-      }
+      msg = "data";
     });
   }
 }
