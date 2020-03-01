@@ -4,6 +4,9 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -49,9 +52,14 @@
       }
       .row.content {height:auto;} 
     }
+    
+    #mapid { height: 180px; }
   </style>
     
-    
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
   <script type="application/javascript" >
       
 //          getLocation:function(){
@@ -78,16 +86,28 @@
 //                lon=position.coords.longitude;
 //                alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
 ////                AIzaSyCnnzF-Be-FiEcG76Xdm9nSQg5nJ-jKngw
-//                
+//                https://maps.googleapis.com/maps/api/staticmap?center=' +'13.012172800000002,77.6732672'+ "&zoom=14&size=400x300&sensor=false&key=AIzaSyA8pq5IiB3XpHZDX0jViKjbvtMeyJkyXTI
 //            }
             function showPosition(position) {
                  lat=position.coords.latitude;
                  lon=position.coords.longitude;
-                 var latlon = lat + "," + lon;
-                alert(latlon);
-                var img_url = 'https://maps.googleapis.com/maps/api/staticmap?center=' +latlon+ "&zoom=14&size=400x300&sensor=false&key=AIzaSyCnnzF-Be-FiEcG76Xdm9nSQg5nJ-jKngw";
-
-                 document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+//                 var latlon = lat + "," + lon;
+//                alert(latlon);
+//                var img_url = 'https://maps.googleapis.com/maps/api/staticmap?center=' +latlon+ "&zoom=14&size=400x300&sensor=false&key=AIzaSyA8pq5IiB3XpHZDX0jViKjbvtMeyJkyXTI";
+//
+//                 document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+                   alert(lat+"  :  "+lon);
+                   var mymap = L.map('mapid').setView([lat, lon], 20);
+                                L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/1/1/0?access_token=pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 20,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ'
+                }).addTo(mymap);
+                bounds = new L.LatLngBounds([lat,lon],[lat,lon]);
+                mymap.fitBounds(bounds);
             }
       
   </script>
@@ -199,10 +219,16 @@
     
   </div>
 </div>
-
+<div id="mapid" style="height:800px;"></div>
+<!--
 <footer class="container-fluid text-center footer navbar-fixed-bottom">
   <p>For mobile support download our app <a><b><u>here</u></b></a></p>
 </footer>
+-->
 
 </body>
 </html>
+
+<!--MAPBOX API KEY: pk.eyJ1IjoiYW1vZ2hyYWplc2giLCJhIjoiY2s3OHp2NWg3MDVsYzNtcnoyc2p6N3p1aCJ9.zJE0hCiTPuQWj5FWzuegFQ-->
+
+
