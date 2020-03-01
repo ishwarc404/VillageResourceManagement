@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leaflet sample</title>
+    <link
+      rel="stylesheet"
+      href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
+    />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  </head>
+
+  <body>
+    <div id="map" style="width: 900px; height: 580px"></div>
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      lat = "";
+      lon = "";
+      function showPosition(position) {
+        lat = position.coords.latitude;
+        console.log(lat);
+        lon = position.coords.longitude;
+        console.log(lon);
+        display();
+      }
+      getLocation();
+
+      function display() {
+        // Creating map options
+        var mapOptions = {
+          center: [lat, lon],
+          zoom: 15
+        };
+
+        // Creating a map object
+        var map = new L.map("map", mapOptions);
+
+        // Creating a Layer object
+        var layer = new L.TileLayer(
+          "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        );
+
+        //adding marker
+        // Creating a marker
+        var marker = L.marker([lat, lon]);
+
+        // Adding marker to the map
+        marker.addTo(map);
+
+        // Adding layer to the map
+        map.addLayer(layer);
+      }
+    </script>
+  </body>
+</html>
