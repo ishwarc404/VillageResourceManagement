@@ -74,6 +74,9 @@ def electricity_update():
     for i in numbers:
         service.send_message(i,message)
 
+user_complaints = {
+    "village1": []
+}
 @app.route("/update_phone_book",methods=["GET"])
 def get_all_messages():
     messages = list(service.fetch_message_history())
@@ -83,13 +86,26 @@ def get_all_messages():
         print(messages[i].content)
         user_number = messages[i].phone
         user_message = messages[i].content
-        if(user_message in ["v001","v002"]):     #if user just wants to register
+        if("v001" in user_message or "v002" in user_message):     #if user just wants to register
             filee = open("village_database/"+user_message+".txt","a")
             filee.write("," + user_number)
         else: #if user is filing a complaint
             filee = open("user_complaints_" + user_message +".txt","a")
-            filee.write("{"+ user_number+":"+user_message+"}")
+            filee.write(user_number+":"+user_message+"\n")
+            user_complaints["village1"].append(user_message)
+    
+    #displaying the entire database of usercomplaints
+    print(user_complaints)
+    return 1
 
+@app.route("/view_complaints")
+def view():
+    return render_template("view_complaints.html")
+    
+@app.route("/get_complaints",methods=["GET"])
+def get_complaints():
+    print(user_complaints)
+    return user_complaints
 
 
 if __name__ == "__main__" :
