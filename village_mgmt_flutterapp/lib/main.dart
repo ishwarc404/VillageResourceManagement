@@ -122,7 +122,7 @@ class _MainActivityState extends State {
   }
 
   _getWaterStatus() async {
-    var url = 'http://192.168.43.237:5001/get_resource';
+    var url = 'http://192.168.0.115:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);
@@ -146,7 +146,7 @@ class _MainActivityState extends State {
   }
 
   _getElectricityStatus() async {
-    var url = 'http://192.168.43.237:5001/get_resource';
+    var url = 'http://192.168.0.115:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);
@@ -170,7 +170,7 @@ class _MainActivityState extends State {
   }
 
   _getRationStatus() async {
-    var url = 'http://192.168.43.237:5001/get_resource';
+    var url = 'http://192.168.0.115:5001/get_resource';
     var response = await http.get(url);
     print('Response body: ${response.body}');
     var data = json.decode(response.body);

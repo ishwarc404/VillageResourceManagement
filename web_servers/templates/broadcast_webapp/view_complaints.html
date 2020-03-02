@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VIEW COMPLAINTS</title>
+    <script>
+      function getComplaints() {
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = showReply;
+        xhr.open("GET", "/get_complaints", true);
+        // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send();
+      }
+      function showReply() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var village_complaints = JSON.parse(xhr.responseText);
+          //alert("Your request for updation has been recieved successfully!");
+          console.log(village_complaints);
+          //render it accordingly
+          table = document.getElementById("table");
+          vil1_data = village_complaints["village1"];
+          for (i = 0; i < vil1_data.length; i++) {
+            tr = document.createElement("tr");
+            td1 = document.createElement("td");
+            td2 = document.createElement("td");
+
+            td1.innerHTML = "village1";
+            td2.innerHTML = vil1_data[i];
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            table.appendChild(tr);
+          }
+
+          vil2_data = village_complaints["village2"];
+          for (i = 0; i < vil2_data.length; i++) {
+            tr = document.createElement("tr");
+            td1 = document.createElement("td");
+            td2 = document.createElement("td");
+
+            td1.innerHTML = "village2";
+            td2.innerHTML = vil2_data[i];
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            table.appendChild(tr);
+          }
+        }
+      }
+    </script>
+    <style>
+
+      td{
+        padding:10px;
+      }
+
+    </style>
+  </head>
+  <body onload="getComplaints()">
+    <table id="table" border="1px">
+
+      <tr>
+
+        <th>VILLAGE</th>
+        <th>COMPLAINT</th>
+      </tr>
+
+    </table>
+  </body>
+</html>
