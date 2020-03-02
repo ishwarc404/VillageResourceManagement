@@ -26,6 +26,8 @@
       function getOption() {
         console.log("1");
         village_id = document.querySelector("#select1").value;
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = showReply;
         resource_name = document.querySelector(
           'input[name="resource_name"]:checked'
         ).value;
@@ -40,6 +42,28 @@
         xhr.open("POST", "/send_"+str(resource_name), true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.send(JSON.stringify(data));
+      }
+      
+      function updateDB()
+      {
+          /update_phone_book
+          
+          xhr1=new XMLHttpRequest();
+          xhr1.onreadystatechange = showReply1;
+          xhr1.open("GET", "/update_phone_book", true);
+          //xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xhr1.send();
+          
+      }
+     function showReply() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            alert("Your request for updation has been recieved successfully!");
+        }
+      }
+     function showReply1() {
+        if (xhr1.readyState == 4 && xhr1.status == 200) {
+            alert("Your request for updation has been recieved successfully!");
+        }
       }
   </script>
   
@@ -70,7 +94,10 @@
       <button class="btn btn-success" onclick="getOption()">
         Send Broadcast
       </button>
-
+        <br>
+      <button class="btn btn-success" onclick="updateDB()">
+        Update Database
+      </button>
       </div>
     </body>
 
