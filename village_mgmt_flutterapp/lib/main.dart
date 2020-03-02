@@ -74,7 +74,7 @@ class _MainActivityState extends State {
                 SizedBox(width: 10),
                 RaisedButton(
                   child: Text("Weather", style: TextStyle(fontSize: 30)),
-                  onPressed: _getRationStatus,
+                  onPressed: _getWeatherStatus,
                   color: Colors.blue,
                   textColor: Colors.white,
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -193,6 +193,17 @@ class _MainActivityState extends State {
     });
   }
 
+  _getWeatherStatus() async {
+    var url = 'http://192.168.0.115:5001/get_resource';
+    var response = await http.get(url);
+    print('Response body: ${response.body}');
+    var data = json.decode(response.body);
+    data = data["ration"];
+    setState(() {
+      msg = "Weather" + "\n" + "MAX TEMP: 32C" + "\n" + "PARTLY CLOUDY";
+    });
+  }
+
   _navigateHelpPage() {
     Navigator.push(
       context,
@@ -259,7 +270,7 @@ class SecondPage extends StatelessWidget {
                     RaisedButton(
                         child: Text("Village Office",
                             style: TextStyle(fontSize: 30)),
-                        onPressed: _noRationButton,
+                        onPressed: _villageOffice,
                         color: Colors.red[600],
                         textColor: Colors.white,
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -305,6 +316,17 @@ class SecondPage extends StatelessWidget {
 
   _callCentralHepline() async {
     print("calling central helpline");
+    // String telephoneUrl = "tel:26691781";
+
+    // if (await canLaunch(telephoneUrl)) {
+    //   await launch(telephoneUrl);
+    // } else {
+    //   throw "Can't phone that number.";
+    // }
+  }
+
+  _villageOffice() async {
+    print("calling Village Office");
     // String telephoneUrl = "tel:26691781";
 
     // if (await canLaunch(telephoneUrl)) {
