@@ -10,7 +10,7 @@ import os
 
 app = Flask(__name__)
 
-ip = IPv4Address("192.168.0.144")  # let's create an IP address object
+ip = IPv4Address("192.168.1.8")  # let's create an IP address object
 # now create a session
 session = AirmoreSession(ip)
 
